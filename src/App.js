@@ -31,7 +31,6 @@ class App extends Component {
   }
 
   focusDiv() {
-    console.log('Clicking on board');
     ReactDOM.findDOMNode(this.refs.board).click();
     ReactDOM.findDOMNode(this.refs.board).focus();
   }
@@ -63,8 +62,6 @@ class App extends Component {
     }
     if(event.key === 'M'){
       let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
-      console.log(aud[0].src)
-      //aud[0].src==='http://127.0.0.1:3000/badger2.mp3'?aud[0].src='tetris.mp3':aud[0].src = 'badger2.mp3';
       this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
       aud[0].src = this.music[this.selectedmusic];
       aud[0].load();

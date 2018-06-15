@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import './board.css';
-import { socketHandler, socket } from '../socketCommunication';
-import canvasLogic from './canvasLogic';
 import { connect } from 'react-redux';
 import { finishGame } from '../actions/index';
 
 class Board extends Component {
   componentDidMount() {
-  console.log('here we go')
     this.tetrisCanvas = this.refs.tetrisCanvas;
     this.tetrisCanvasContext = this.tetrisCanvas.getContext('2d');
     this.tetrisCanvasContext.scale(20, 20);
