@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
 
 @font-face {
@@ -23,15 +24,22 @@
 
 h1 {
   font-family: 'motherland';
-   font-size: 150px;
-
+   font-size: 400px;
+text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   margin: 0;
   padding-top:30px;
 
 }
 
+p {
+  font-family: 'Red October';
+  font-size: 40px;
+
+}
+
 button {
   color:black;
+  font-family: 'Red October';
   font-weight: bold;
   background-color:rgb(231, 203, 77);
   padding: 8px 6px;
@@ -40,9 +48,102 @@ button {
 }
 
 input {
-   font-family: 'SovjetBoxbold';
+   font-family: 'Red October';
+   text-align: center;
   padding: 8px 12px;
-  width: 160px;
+  font-size: 40px;
+  width: 800px;
+  height: 50px;
   border-radius: 12px;
   outline:none;
+}
+
+body {
+  background: black;
+}
+.button {
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  background-color: #C90E17;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 1000px;
+  height: 80px;
+  display: inline-block;
+  font-family: 'Red October';
+  font-size: 40px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+.typewriter p {
+  font-family: 'Special Elite';
+  border: 2px;
+  font-size: 25px;
+  padding: 5px;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid black; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+.orders-container {
+background-image: url('https://i.pinimg.com/originals/9d/93/22/9d93224ff6b8c91a21204f5edea5407f.jpg') ;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+  position: absolute;
+  left: 50%;
+  top: 21%;
+  height: 800px;
+  width: 666px;
+  margin-left: -200px;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
 }

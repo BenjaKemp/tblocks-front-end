@@ -86,19 +86,24 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'black'}}>lets play tetris</h1>
-          <p style={{color: 'white'}}>Comrades Ready: {this.props.playerCount}</p>
+          <h1 style={{color: '#C90E17'}}>Comrade</h1>
+
+          <p>Comrades Ready: {this.props.playerCount}</p>
           <input placeholder="Enter your name" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
+<button type="submit" class="button" onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <p style={{color: 'white'}}>Waiting for comrade</p>
+          <div class="orders-container">
+          <div class="typewriter">
+          <p>Greetings komrade, we have intercepted an encoded transmission from the germans, please use your superior skills to break the lines of code </p>
         </div>
+        </div>
+      </div>
       );
     } else if (this.props.clientStatus === 'pair') {
       setTimeout(() => {
