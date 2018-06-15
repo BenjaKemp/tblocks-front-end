@@ -7,7 +7,6 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-<link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/soviet-box-bold-v-0-6" type="text/css"/>
 
 let store = createStore(
   rootReducer, /* preloadedState, */
