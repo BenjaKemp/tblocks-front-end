@@ -23,12 +23,12 @@ class App extends Component {
     });
 
     socketHandler['finishGame']((data) => {
-      console.log("TEST");
       this.props.finishGame(data);
     });
 
     //handling music
     this.music = new Audio( 'tetris.mp3' );
+    this.music.loop = true;
     this.musicList = ['tetris.mp3','badger2.mp3'];
     this.selectedmusic = 0;
 
