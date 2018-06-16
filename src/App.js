@@ -89,7 +89,7 @@ class App extends Component {
           <h1 style={{color: '#C90E17'}}>Comrade</h1>
 
           <p>Comrades Ready: {this.props.playerCount}</p>
-          <input placeholder="Enter your name" ref="name"/>
+          <input placeholder="введите ваше имя" ref="name"/>
           <br />
           <br />
 <button type="submit" class="button" onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
@@ -99,9 +99,13 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <div class="orders-container">
-          <div class="typewriter">
-          <p>Greetings komrade, we have intercepted an encoded transmission from the germans, please use your superior skills to break the lines of code </p>
-        </div>
+
+          <p class="line-1 anim-typewriter">Greetings komrade, we have intercepted an</p>
+          <p class="line-1 anim-typewriter1">encoded transmission from Ze Germans or the Argies</p>
+          <p class="line-1 anim-typewriter2">and probably at least one fucking Fin,</p>
+          <p class="line-1 anim-typewriter3">please use your superior coding knowledge to break</p>
+          <p class="line-1 anim-typewriter4">the lines of code</p>
+
         </div>
       </div>
       );
