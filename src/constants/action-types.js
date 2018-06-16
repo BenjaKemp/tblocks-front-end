@@ -8,3 +8,6 @@ export const MOVE_RIGHT= 'MOVE_RIGHT';
 export const MOVE_DOWN= 'MOVE_DOWN';
 export const DROP_DOWN= 'DROP_DOWN';
 export const ROTATE= 'ROTATE';
+export const COLLTOFALS= 'COLLISION_TO_FALSE';
+export const ROWDESTFALS= 'ROWDEST_TO_FALSE';
+
