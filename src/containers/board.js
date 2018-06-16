@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { finishGame } from '../actions/index';
 
 class Board extends Component {
+  constructor(props){
+    super(props)
+    if (this.props.music) this.props.music.play();
+  }
   componentDidMount() {
     this.tetrisCanvas = this.refs.tetrisCanvas;
     this.tetrisCanvasContext = this.tetrisCanvas.getContext('2d');
@@ -60,9 +64,7 @@ class Board extends Component {
   render() {
       return (
       <div style={{display:'inline'}}>
-        <audio className="music" ref='music' src="tetris.mp3" volume="0.1" loop="loop" autoPlay >
-          Error: your web browser does not support this audio player.
-        </audio>
+        <img src="memeBlyat.gif" className="fRowDest" alt="blyat" style={{display: 'none'}}/>
         <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
       </div>
     );

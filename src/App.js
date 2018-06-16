@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePlayerCount, requestMoveLeft, requestMoveRight, requestMoveDown, requestDropDown, requestRotate, collisionToFalse, rowDestToFalse  } from "./actions/index";
+import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePlayerCount, requestMoveLeft, requestMoveRight, requestMoveDown, requestDropDown, requestRotate, collisionToFalse, rowDestToFalse, fRowDestToFalse } from "./actions/index";
 import './App.css';
 import ReactDOM from 'react-dom';
 import Board from './containers/board';
@@ -23,12 +23,18 @@ class App extends Component {
     });
 
     socketHandler['finishGame']((data) => {
+      console.log("TEST");
       this.props.finishGame(data);
     });
+
+    //handling music
+    this.music = new Audio( 'tetris.mp3' );
+    this.musicList = ['tetris.mp3','badger2.mp3'];
+    this.selectedmusic = 0;
+
+
     this.myRef = React.createRef();
     this.myRef2 = React.createRef();
-    this.music = ['tetris.mp3','badger2.mp3'];
-    this.selectedmusic = 0;
   }
   componentDidUpdate(){
     if (this.props.playerPiece.collision) {
@@ -40,6 +46,14 @@ class App extends Component {
       aud.volume = 0.5;
       aud.play();
       this.props.playerPiece.rowDest = false;
+    }
+    if (this.props.playerPiece.fRowDest) {
+      let gif = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('fRowDest');
+      gif[0].style = {display:'block'};
+      setTimeout((gif)=>{
+        gif.style.display= 'none';
+      },5000,gif[0]);
+      this.props.setfRowDestToFalse();
     }
   }
   focusDiv() {
@@ -69,14 +83,13 @@ class App extends Component {
       this.props.requestDropDown();
     }
     if(event.key === 'm'){
-      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
-      aud[0].muted?aud[0].muted = false:aud[0].muted = true;
+      this.music.muted ? this.music.muted = false : this.music.muted = true;
     }
     if(event.key === 'M'){
-      let aud = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('music');
       this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
-      aud[0].src = this.music[this.selectedmusic];
-      aud[0].load();
+      this.music.src = this.musicList[this.selectedmusic];
+      this.music.load();
+      this.music.play();
     }
   }
 
@@ -110,13 +123,13 @@ class App extends Component {
     } else if (this.props.clientStatus === 'wait') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <div class="orders-container">
+          <div className="orders-container">
 
-          <p class="line-1 anim-typewriter">Greetings komrade, we have intercepted an</p>
-          <p class="line-1 anim-typewriter1">encoded transmission from Ze Germans or the Argies</p>
-          <p class="line-1 anim-typewriter2">and probably at least one fucking Fin,</p>
-          <p class="line-1 anim-typewriter3">please use your superior coding knowledge to break</p>
-          <p class="line-1 anim-typewriter4">the lines of code</p>
+          <p className="line-1 anim-typewriter">Greetings komrade, we have intercepted an</p>
+          <p className="line-1 anim-typewriter1">encoded transmission from Ze Germans or the Argies</p>
+          <p className="line-1 anim-typewriter2">and probably at least one fucking Fin,</p>
+          <p className="line-1 anim-typewriter3">please use your superior coding knowledge to break</p>
+          <p className="line-1 anim-typewriter4">the lines of code</p>
 
         </div>
       </div>
@@ -129,8 +142,8 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
           <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
-          <Board ref={this.myRef} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          {/* <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/> */}
+          <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
           {this.showGameResults()}
         </div>
       );
@@ -172,6 +185,7 @@ const mapDispatchToProps = (dispatch) => ({
     requestRotate: () => dispatch(requestRotate()),
     setCollisionToFalse: ()=> dispatch(collisionToFalse()),
     setRowDestToFalse: ()=> dispatch(rowDestToFalse()),
+    setfRowDestToFalse: ()=> dispatch(fRowDestToFalse()),
 
 });
 
