@@ -104,7 +104,7 @@ class App extends Component {
           <input placeholder="введите ваше имя" ref="name"/>
           <br />
           <br />
-<button type="submit" class="button" onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
+<button type="submit" className="button" onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
