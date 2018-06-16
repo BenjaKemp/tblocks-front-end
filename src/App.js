@@ -86,19 +86,28 @@ class App extends Component {
     if (this.props.clientStatus === 'welcome') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <h1 style={{color: 'black'}}>lets play tetris</h1>
-          <p style={{color: 'white'}}>Comrades Ready: {this.props.playerCount}</p>
-          <input placeholder="Enter your name" ref="name"/>
+          <h1 style={{color: '#C90E17'}}>Comrade</h1>
+
+          <p>Comrades Ready: {this.props.playerCount}</p>
+          <input placeholder="введите ваше имя" ref="name"/>
           <br />
           <br />
-          <button onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
+<button type="submit" class="button" onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
-          <p style={{color: 'white'}}>Waiting for comrade</p>
+          <div class="orders-container">
+
+          <p class="line-1 anim-typewriter">Greetings komrade, we have intercepted an</p>
+          <p class="line-1 anim-typewriter1">encoded transmission from Ze Germans or the Argies</p>
+          <p class="line-1 anim-typewriter2">and probably at least one fucking Fin,</p>
+          <p class="line-1 anim-typewriter3">please use your superior coding knowledge to break</p>
+          <p class="line-1 anim-typewriter4">the lines of code</p>
+
         </div>
+      </div>
       );
     } else if (this.props.clientStatus === 'pair') {
       setTimeout(() => {
