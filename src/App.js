@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePlayerCount, requestMoveLeft, requestMoveRight, requestMoveDown, requestDropDown, requestRotate  } from "./actions/index";
+import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePlayerCount, requestMoveLeft, requestMoveRight, requestMoveDown, requestDropDown, requestRotate, collisionToFalse, rowDestToFalse  } from "./actions/index";
 import './App.css';
 import ReactDOM from 'react-dom';
 import Board from './containers/board';
@@ -26,10 +26,22 @@ class App extends Component {
       this.props.finishGame(data);
     });
     this.myRef = React.createRef();
+    this.myRef2 = React.createRef();
     this.music = ['tetris.mp3','badger2.mp3'];
     this.selectedmusic = 0;
   }
-
+  componentDidUpdate(){
+    if (this.props.playerPiece.collision) {
+      new Audio('impact.mp3').play();
+      this.props.setCollisionToFalse();
+    }
+    if (this.props.playerPiece.rowDest) {
+      let aud = new Audio('crash.mp3');
+      aud.volume = 0.5;
+      aud.play();
+      this.props.playerPiece.rowDest = false;
+    }
+  }
   focusDiv() {
     ReactDOM.findDOMNode(this.refs.board).click();
     ReactDOM.findDOMNode(this.refs.board).focus();
@@ -79,6 +91,7 @@ class App extends Component {
   }
 
   lookForAnOpponentClicked() {
+    new Audio('shotgun.mp3').play();
     socketHandler['makePlayerAvailable'](this.refs.name.value)
   }
 
@@ -87,7 +100,6 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <h1 style={{color: '#C90E17'}}>Comrade</h1>
-
           <p>Comrades Ready: {this.props.playerCount}</p>
           <input placeholder="введите ваше имя" ref="name"/>
           <br />
@@ -157,7 +169,9 @@ const mapDispatchToProps = (dispatch) => ({
     requestMoveRight: () => dispatch(requestMoveRight()),
     requestMoveDown: () => dispatch(requestMoveDown()),
     requestDropDown: () => dispatch(requestDropDown()),
-    requestRotate: () => dispatch(requestRotate())
+    requestRotate: () => dispatch(requestRotate()),
+    setCollisionToFalse: ()=> dispatch(collisionToFalse()),
+    setRowDestToFalse: ()=> dispatch(rowDestToFalse()),
 
 });
 
