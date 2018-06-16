@@ -10,4 +10,6 @@ export const DROP_DOWN= 'DROP_DOWN';
 export const ROTATE= 'ROTATE';
 export const COLLTOFALS= 'COLLISION_TO_FALSE';
 export const ROWDESTFALS= 'ROWDEST_TO_FALSE';
+export const FROWDESTFALS= 'FOUR_ROWDEST_TO_FALSE';
+
 

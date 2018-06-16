@@ -1,4 +1,4 @@
-import {START_GAME, FINISH_GAME, UPDATE_CLIENT_BOARD, UPDATE_CLIENT_STATUS, UPDATE_PLAYER_COUNT, MOVE_LEFT, MOVE_RIGHT, MOVE_DOWN, DROP_DOWN, ROTATE, COLLTOFALS, ROWDESTFALS } from "../constants/action-types";
+import {START_GAME, FINISH_GAME, UPDATE_CLIENT_BOARD, UPDATE_CLIENT_STATUS, UPDATE_PLAYER_COUNT, MOVE_LEFT, MOVE_RIGHT, MOVE_DOWN, DROP_DOWN, ROTATE, COLLTOFALS, ROWDESTFALS, FROWDESTFALS } from "../constants/action-types";
 
 
 const initialState = {
@@ -19,6 +19,7 @@ const initialState = {
     level: 0,
     collision: false,
     rowDest: false,
+    fRowDest: false,
   },
   opponentPiece: null
 };
@@ -113,6 +114,14 @@ const rootReducer = (state = initialState, action) => {
     playerPiece: {
       ...state.playerPiece,
       rowDest: false
+    }
+  }
+  case FROWDESTFALS:
+  return {
+    ...state,
+    playerPiece: {
+      ...state.playerPiece,
+      fRowDest: false
     }
   }
   default:
