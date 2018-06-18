@@ -22,11 +22,27 @@
   text-align: center;
   margin:0;
   padding:0;
+  padding-top:30px;
   width: 100%;
   height: 96vh;
   outline:none;
 }
+.App-SoloScene {
+  margin:auto;
+  max-width:450px;
+  display: flex;
+  justify-content:space-around;
+  align-items: flex-end;
 
+}
+.App-VSScene {
+  display: flex;
+  justify-content: space-around;
+}
+.App-FFAScene {
+  display: flex;
+  justify-content: space-around;
+}
 h1 {
   font-family: 'motherland';
    font-size: 400px;

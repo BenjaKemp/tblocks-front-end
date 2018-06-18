@@ -1,0 +1,19 @@
+.SoloUI {
+  background-color: rgba(155,0,0,0.8);
+  padding: 10px;
+  border: 2px solid yellow;
+  border-radius: 10px;
+  height: 400px;
+}
+.scoreT {
+}
+
+.scoreV {
+  color:yellow;
+}
+.lvlT {
+
+}
+.lvlV {
+  color:yellow;
+}
