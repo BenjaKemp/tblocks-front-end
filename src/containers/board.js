@@ -27,8 +27,10 @@ class Board extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     this.clearCanvas('#000');
-    this.drawMatrix(nextProps.boardStatus, {x:0,y:0});
-    this.drawMatrix(nextProps.piece.matrix, nextProps.piece.pos);
+    if (nextProps.piece) this.drawMatrix(nextProps.boardStatus, {x:0,y:0});
+    else if ( this.props.piece ) this.drawMatrix(this.props.boardStatus, {x:0,y:0});
+    if (nextProps.piece) this.drawMatrix(nextProps.piece.matrix, nextProps.piece.pos);
+    else if ( this.props.piece ) this.drawMatrix(this.props.piece.matrix, this.props.piece.pos);
 
     return false;
   }

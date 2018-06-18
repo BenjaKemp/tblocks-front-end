@@ -9,9 +9,10 @@ const initialState = {
   availablePlayers: [],
   clientStatus: 'welcome',
   player01: null,
-  player02: null,
+  //player02: null,
+  opponents: null,
+  opponentsBP: {},
   playerBoard: null,
-  opponentBoard: null,
   playerPiece: {
     pos: {},
     matrix: [],
@@ -21,7 +22,6 @@ const initialState = {
     rowDest: false,
     fRowDest: false,
   },
-  opponentPiece: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -42,20 +42,29 @@ const rootReducer = (state = initialState, action) => {
       playerPiece: action.data.player
     }
   } else {
+      const aux = {...state.opponentsBP}
+        aux[action.data.playerID] = {
+          opponentsBoard: action.data.board,
+          opponentsPiece: action.data.player
+        }
     return {
       ...state,
-      opponentBoard: action.data.board,
-      opponentPiece: action.data.player
+      opponentsBP: aux,
     }
   }
 
 
   case UPDATE_CLIENT_STATUS:
+    const aux = {...state.oponentsBP}
+    if ( action.data.player ){
+      aux[action.data.player.id] = {};
+    }
     return {
       ...state,
       clientStatus: action.data.status,
       player01: action.data.player,
-      player02: action.data.opponent
+      opponents: action.data.opponents,
+      opponentsBP: aux,
     }
 
   case UPDATE_PLAYER_COUNT:
