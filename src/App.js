@@ -8,8 +8,9 @@ import { connect } from 'react-redux';
 
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {selection: false};
     socketHandler['playersOnline']((playerCount) => {
       this.props.updatePlayerCount(playerCount);
     });
@@ -26,12 +27,15 @@ class App extends Component {
       this.props.finishGame(data);
     });
 
+    //Name intro
+    this.nameIntroduced = '';
+    this.optionSelected = 0;
+
     //handling music
     this.music = new Audio( 'tetris.mp3' );
     this.music.loop = true;
     this.musicList = ['tetris.mp3','badger2.mp3'];
     this.selectedmusic = 0;
-
 
     this.myRef = React.createRef();
     this.myRef2 = React.createRef();
@@ -62,34 +66,36 @@ class App extends Component {
   }
 
   handleKeyPress = (event) => {
-    if(event.key === 'ArrowLeft'){
-      socketHandler['keyPressed']({"key":'left', "player": this.props.player01});
-      this.props.requestMoveLeft();
-    }
-    if(event.key === 'ArrowRight'){
-      socketHandler['keyPressed']({"key":'right', "player": this.props.player01});
-      this.props.requestMoveRight();
-    }
-    if(event.key === 'ArrowUp'){
-      socketHandler['keyPressed']({"key":'up', "player": this.props.player01});
-      this.props.requestRotate();
-    }
-    if(event.key === 'ArrowDown'){
-      socketHandler['keyPressed']({"key":'down', "player": this.props.player01});
-      this.props.requestMoveDown();
-    }
-    if(event.key === ' '){
-      socketHandler['keyPressed']({"key":'spacebar', "player": this.props.player01});
-      this.props.requestDropDown();
-    }
-    if(event.key === 'm'){
-      this.music.muted ? this.music.muted = false : this.music.muted = true;
-    }
-    if(event.key === 'M'){
-      this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
-      this.music.src = this.musicList[this.selectedmusic];
-      this.music.load();
-      this.music.play();
+    if (this.props.clientStatus === 'pair') {
+      if(event.key === 'ArrowLeft'){
+        socketHandler['keyPressed']({"key":'left', "player": this.props.player01});
+        this.props.requestMoveLeft();
+      }
+      if(event.key === 'ArrowRight'){
+        socketHandler['keyPressed']({"key":'right', "player": this.props.player01});
+        this.props.requestMoveRight();
+      }
+      if(event.key === 'ArrowUp'){
+        socketHandler['keyPressed']({"key":'up', "player": this.props.player01});
+        this.props.requestRotate();
+      }
+      if(event.key === 'ArrowDown'){
+        socketHandler['keyPressed']({"key":'down', "player": this.props.player01});
+        this.props.requestMoveDown();
+      }
+      if(event.key === ' '){
+        socketHandler['keyPressed']({"key":'spacebar', "player": this.props.player01});
+        this.props.requestDropDown();
+      }
+      if(event.key === 'm'){
+        this.music.muted ? this.music.muted = false : this.music.muted = true;
+      }
+      if(event.key === 'M'){
+        this.selectedmusic === 0 ? this.selectedmusic = 1 : this.selectedmusic = 0;
+        this.music.src = this.musicList[this.selectedmusic];
+        this.music.load();
+        this.music.play();
+      }
     }
   }
 
@@ -103,17 +109,37 @@ class App extends Component {
     }
   }
 
-  lookForAnOpponentClicked() {
+  goAndSelectGame() {
     new Audio('shotgun.mp3').play();
-    socketHandler['makePlayerAvailable'](this.refs.name.value)
+    this.setState({selection: true});
+    this.nameIntroduced = this.refs.name.value;
+  }
+
+  lookForAnOpponentClicked(option) {
+    new Audio('shotgun.mp3').play();
+    this.optionSelected = option;
+    socketHandler['makePlayerAvailable'](this.nameIntroduced,option)
+  }
+
+  getOppBoard(id){
+    if (this.props.opponentsBP[id.id]!== undefined) {
+      return this.props.opponentsBP[id.id].opponentsBoard;
+    }
+    return null;
+  }
+  getOppPiece(id){
+    if (this.props.opponentsBP[id.id]!== undefined) {
+     return this.props.opponentsBP[id.id].opponentsPiece;
+    }
+    return null;
   }
 
   renderView() {
-    if (this.props.clientStatus === 'welcome') {
+    if (this.props.clientStatus === 'welcome' && !this.state.selection) {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <h1 style={{color: '#C90E17'}}>Comrade</h1>
-          <form onSubmit={(e)=>{e.preventDefault(); this.lookForAnOpponentClicked()}}>
+          <form onSubmit={(e)=>{e.preventDefault(); this.goAndSelectGame()}}>
             <p>Comrades Ready: {this.props.playerCount}</p>
             <input placeholder="введите ваше имя" ref="name"/>
             <br />
@@ -121,6 +147,19 @@ class App extends Component {
             <button type="submit" className="button" >Enlist Now!</button>
           </form>
 
+        </div>
+      );
+    } else if (this.props.clientStatus === 'welcome' && this.state.selection ) {
+      return (
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
+          <h1 style={{color: '#C90E17'}}>Comrade</h1>
+          <button className="button" onClick={(e)=>this.lookForAnOpponentClicked('1')}>1 Player</button>
+          <br />
+          <br />
+          <button className="button" onClick={(e)=>this.lookForAnOpponentClicked('2')}>1 Vs 1</button>
+          <br />
+          <br />
+          <button className="button" onClick={(e)=>this.lookForAnOpponentClicked('3')}>FFA (3P)</button>
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
@@ -138,16 +177,53 @@ class App extends Component {
         </div>
       </div>
       );
-    } else if (this.props.clientStatus === 'pair') {
+    } else if (this.props.clientStatus === 'pair' && this.optionSelected === '1') {
       setTimeout(() => {
         this.focusDiv();
       },1500);
 
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
-          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.player02.name}</p>
+          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, You are playing alone :)</p>
           <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          <Board player={this.props.player02} boardStatus={this.props.opponentBoard} piece={this.props.opponentPiece}/>
+          {this.showGameResults()}
+        </div>
+      );
+    } else if (this.props.clientStatus === 'pair' && this.optionSelected === '2') {
+      setTimeout(() => {
+        this.focusDiv();
+      },1500);
+
+      return (
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
+          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.opponents[0].name}</p>
+          <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          <Board
+            player={ this.props.opponents[0] }
+            boardStatus={this.getOppBoard(this.props.opponents[0])}
+            piece={this.getOppPiece(this.props.opponents[0])}/>
+            />
+          {this.showGameResults()}
+        </div>
+      );
+    } else if (this.props.clientStatus === 'pair' && this.optionSelected === '3') {
+      setTimeout(() => {
+        this.focusDiv();
+      },1500);
+
+      return (
+        <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
+          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.opponents[0].name} and {this.props.opponents[1].name}</p>
+          <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          <Board
+            player={ this.props.opponents[0] }
+            boardStatus={this.getOppBoard(this.props.opponents[0])}
+            piece={this.getOppPiece(this.props.opponents[0])}/>
+            />
+          <Board
+            player={this.props.opponents[1]}
+            boardStatus={this.getOppBoard(this.props.opponents[1])}
+            piece={this.getOppPiece(this.props.opponents[1])}/>
           {this.showGameResults()}
         </div>
       );
@@ -168,11 +244,10 @@ const mapStateToProps = (state) => {
     playerCount: state.playerCount,
     clientStatus: state.clientStatus,
     player01: state.player01,
-    player02: state.player02,
+    opponents: state.opponents,
     playerBoard: state.playerBoard,
-    opponentBoard: state.opponentBoard,
     playerPiece: state.playerPiece,
-    opponentPiece: state.opponentPiece
+    opponentsBP: state.opponentsBP,
   }
 }
 
