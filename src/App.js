@@ -111,8 +111,7 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <div class="orders-container">
-
-          <p class="line-1 anim-typewriter">Greetings komrade, we have intercepted an</p>
+          <p class="line-1 anim-typewriter">Greetings {this.props.player01}, we have intercepted an</p>
           <p class="line-1 anim-typewriter1">encoded transmission from Ze Germans or the Argies</p>
           <p class="line-1 anim-typewriter2">and probably at least one fucking Fin,</p>
           <p class="line-1 anim-typewriter3">please use your superior coding knowledge to break</p>
