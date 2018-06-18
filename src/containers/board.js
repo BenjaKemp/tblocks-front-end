@@ -34,10 +34,11 @@ class Board extends Component {
 
     return false;
   }
-
   clearCanvas(color = '#000') {
-    this.tetrisCanvasContext.fillStyle = color;
-    this.tetrisCanvasContext.fillRect(0,0,this.tetrisCanvas.width,this.tetrisCanvas.height);
+    // Make sure the image is loaded first otherwise nothing will draw.
+    this.tetrisCanvasContext.drawImage(this.props.bg,0,0,12,20);
+    // this.tetrisCanvasContext.fillStyle = color;
+    // this.tetrisCanvasContext.fillRect(0,0,this.tetrisCanvas.width,this.tetrisCanvas.height);
   }
   drawBorder(xPos, yPos, width, height, thickness = 1)
   {
@@ -62,12 +63,13 @@ class Board extends Component {
       })
     })
   }
-
+  //<img src="memeBlyat.gif" className="fRowDest" alt="blyat" style={{display: 'none'}}/>
   render() {
       return (
-      <div style={{display:'inline'}}>
-        <img src="memeBlyat.gif" className="fRowDest" alt="blyat" style={{display: 'none'}}/>
-        <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
+        <div className="div-board">
+          <p className="PJName">{this.props.player.name}</p>
+          <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
+
       </div>
     );
   }

@@ -2,3 +2,12 @@ canvas {
   border: 2px white solid;
   margin: 18px 8px;
 }
+.div-board {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+}
+.PJName {
+  margin-bottom: 0;
+}

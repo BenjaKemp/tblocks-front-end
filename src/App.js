@@ -3,6 +3,7 @@ import { startGame, finishGame, updateClientBoard, updateClientStatus, updatePla
 import './App.css';
 import ReactDOM from 'react-dom';
 import Board from './containers/board';
+import SoloUI from './containers/soloUI';
 import { socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
 
@@ -34,11 +35,19 @@ class App extends Component {
     //handling music
     this.music = new Audio( 'tetris.mp3' );
     this.music.loop = true;
+    this.music.muted = true;
     this.musicList = ['tetris.mp3','badger2.mp3'];
     this.selectedmusic = 0;
 
     this.myRef = React.createRef();
     this.myRef2 = React.createRef();
+    this.gifRef = React.createRef();
+
+    this.backgroundPlayer = new Image();
+    this.backgroundPlayer.src = "BGP.jpg";
+    this.backgroundOpponents = new Image();
+    this.backgroundOpponents.src = "BGO.jpg";
+
   }
   componentDidUpdate(){
     if (this.props.playerPiece.collision) {
@@ -52,13 +61,14 @@ class App extends Component {
       this.props.playerPiece.rowDest = false;
     }
     if (this.props.playerPiece.fRowDest) {
-      let gif = ReactDOM.findDOMNode(this.myRef.current).getElementsByClassName('fRowDest');
-      gif[0].style = {display:'block'};
+      let gif = this.gifRef.current;
+      gif.style = {display:'block'};
       setTimeout((gif)=>{
         gif.style.display= 'none';
-      },5000,gif[0]);
+      },5000,gif);
       this.props.setfRowDestToFalse();
     }
+
   }
   focusDiv() {
     ReactDOM.findDOMNode(this.refs.board).click();
@@ -184,9 +194,12 @@ class App extends Component {
 
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
-          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, You are playing alone :)</p>
-          <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          {this.showGameResults()}
+          <div className="App-SoloScene">
+            <SoloUI score={ this.props.playerPiece.score } lvl={ this.props.playerPiece.level }/>
+            <Board ref={this.myRef} bg={this.backgroundPlayer} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+          </div>
+          <img ref={this.gifRef} src="memeBlyat.gif" className="fRowDest" alt="blyat" style={{display: 'none'}}/>
+            {this.showGameResults()}
         </div>
       );
     } else if (this.props.clientStatus === 'pair' && this.optionSelected === '2') {
@@ -194,15 +207,21 @@ class App extends Component {
         this.focusDiv();
       },1500);
 
+      //
+      //  <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.opponents[0].name}</p>
+      //
+      //
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
-          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.opponents[0].name}</p>
-          <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          <Board
-            player={ this.props.opponents[0] }
-            boardStatus={this.getOppBoard(this.props.opponents[0])}
-            piece={this.getOppPiece(this.props.opponents[0])}/>
-            />
+          <div className="App-VSScene">
+            <Board ref={this.myRef} bg={this.backgroundPlayer} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+            <Board
+              player={ this.props.opponents[0] }
+              bg={this.backgroundOpponents}
+              boardStatus={this.getOppBoard(this.props.opponents[0])}
+              piece={this.getOppPiece(this.props.opponents[0])}/>
+              />
+          </div>
           {this.showGameResults()}
         </div>
       );
@@ -211,19 +230,25 @@ class App extends Component {
         this.focusDiv();
       },1500);
 
+      //
+      //  <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.opponents[0].name} and {this.props.opponents[1].name}</p>
+
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
-          <p style={{color: 'white'}}>{this.props.playerPiece.score } { this.props.player01.name}, you've been paired with {this.props.opponents[0].name} and {this.props.opponents[1].name}</p>
-          <Board ref={this.myRef} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
-          <Board
-            player={ this.props.opponents[0] }
-            boardStatus={this.getOppBoard(this.props.opponents[0])}
-            piece={this.getOppPiece(this.props.opponents[0])}/>
-            />
-          <Board
-            player={this.props.opponents[1]}
-            boardStatus={this.getOppBoard(this.props.opponents[1])}
-            piece={this.getOppPiece(this.props.opponents[1])}/>
+          <div className="App-FFAScene">
+            <Board ref={this.myRef} bg={this.backgroundPlayer} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+            <Board
+              player={ this.props.opponents[0] }
+              bg={this.backgroundOpponents}
+              boardStatus={this.getOppBoard(this.props.opponents[0])}
+              piece={this.getOppPiece(this.props.opponents[0])}/>
+              />
+            <Board
+              player={this.props.opponents[1]}
+              bg={this.backgroundOpponents}
+              boardStatus={this.getOppBoard(this.props.opponents[1])}
+              piece={this.getOppPiece(this.props.opponents[1])}/>
+          </div>
           {this.showGameResults()}
         </div>
       );
