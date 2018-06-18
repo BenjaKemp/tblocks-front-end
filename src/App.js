@@ -113,11 +113,14 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0">
           <h1 style={{color: '#C90E17'}}>Comrade</h1>
-          <p>Comrades Ready: {this.props.playerCount}</p>
-          <input placeholder="введите ваше имя" ref="name"/>
-          <br />
-          <br />
-<button type="submit" className="button" onClick={this.lookForAnOpponentClicked.bind(this)}>Enlist Now!</button>
+          <form onSubmit={(e)=>{e.preventDefault(); this.lookForAnOpponentClicked()}}>
+            <p>Comrades Ready: {this.props.playerCount}</p>
+            <input placeholder="введите ваше имя" ref="name"/>
+            <br />
+            <br />
+            <button type="submit" className="button" >Enlist Now!</button>
+          </form>
+
         </div>
       );
     } else if (this.props.clientStatus === 'wait') {
