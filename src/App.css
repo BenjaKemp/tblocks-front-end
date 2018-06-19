@@ -78,7 +78,9 @@ input {
   border-radius: 12px;
   outline:none;
 }
+.END {
 
+}
 body {
   background: black;
 }

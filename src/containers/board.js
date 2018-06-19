@@ -32,6 +32,7 @@ class Board extends Component {
     if (nextProps.piece) this.drawMatrix(nextProps.piece.matrix, nextProps.piece.pos);
     else if ( this.props.piece ) this.drawMatrix(this.props.piece.matrix, this.props.piece.pos);
 
+    if(this.props.gameStatus === 'Game Over')return true;
     return false;
   }
   clearCanvas(color = '#000') {
@@ -63,13 +64,24 @@ class Board extends Component {
       })
     })
   }
+  showGameResults() {
+    if (this.props.gameStatus === 'Game Over') {
+      return (
+        <div className="END">
+          <p>{this.props.message}</p>
+        </div>
+      )
+    } else {
+      return;
+    }
+  }
   //<img src="memeBlyat.gif" className="fRowDest" alt="blyat" style={{display: 'none'}}/>
   render() {
       return (
         <div className="div-board">
           <p className="PJName">{this.props.player.name}</p>
           <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
-
+          {this.showGameResults()}
       </div>
     );
   }
