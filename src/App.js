@@ -143,7 +143,7 @@ class App extends Component {
   }
   getMessageOpp(id){
     if (id.id !== undefined) {
-      return id.name + this.props.message[id.id];
+      return id.name + ' ' + this.props.message[id.id];
     }
     return '';
   }
