@@ -32,7 +32,7 @@ class Board extends Component {
     if (nextProps.piece) this.drawMatrix(nextProps.piece.matrix, nextProps.piece.pos);
     else if ( this.props.piece ) this.drawMatrix(this.props.piece.matrix, this.props.piece.pos);
 
-    if(this.props.gameStatus === 'Game Over')return true;
+    if(nextProps.gameStatus === 'Game Over')return true;
     return false;
   }
   clearCanvas(color = '#000') {

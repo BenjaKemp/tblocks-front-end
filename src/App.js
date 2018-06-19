@@ -77,7 +77,7 @@ class App extends Component {
 
   handleKeyPress = (event) => {
     if (this.props.clientStatus === 'pair') {
-      if(this.props.gameStatus !== 'Game Over') {
+      if(this.props.gameStatus !== 'Game Over' && !this.props.playerPiece.dead) {
         if(event.key === 'ArrowLeft'){
           socketHandler['keyPressed']({"key":'left', "player": this.props.player01});
           this.props.requestMoveLeft();
@@ -112,7 +112,6 @@ class App extends Component {
   }
 
   showGameResults() {
-    console.log(this.props.gameStatus)
     if (this.props.gameStatus === 'Game Over') {
       return (
         <div className="END">
@@ -136,6 +135,18 @@ class App extends Component {
     socketHandler['makePlayerAvailable'](this.nameIntroduced,option)
   }
 
+  getMessagePlayer(){
+    if (this.props.player01 !== null) {
+      return 'YOU ' + this.props.message[this.props.player01.id];
+    }
+    return '';
+  }
+  getMessageOpp(id){
+    if (id.id !== undefined) {
+      return id.name + this.props.message[id.id];
+    }
+    return '';
+  }
   getOppBoard(id){
     if (this.props.opponentsBP[id.id]!== undefined) {
       return this.props.opponentsBP[id.id].opponentsBoard;
@@ -233,13 +244,13 @@ class App extends Component {
               player={this.props.player01}
               boardStatus={this.props.playerBoard}
               piece={this.props.playerPiece}
-              message={this.props.message}/>
+              message={this.getMessagePlayer()}/>
             <Board
               player={ this.props.opponents[0] }
               bg={this.backgroundOpponents}
               boardStatus={this.getOppBoard(this.props.opponents[0])}
               piece={this.getOppPiece(this.props.opponents[0])}
-              message={this.props.message}/>
+              message={this.getMessageOpp(this.props.opponents[0])}/>
               />
           </div>
         </div>
@@ -255,20 +266,30 @@ class App extends Component {
       return (
         <div className="App" onKeyDown={this.handleKeyPress} tabIndex="0" ref="board">
           <div className="App-FFAScene">
-            <Board ref={this.myRef} bg={this.backgroundPlayer} music={this.music} player={this.props.player01} boardStatus={this.props.playerBoard} piece={this.props.playerPiece}/>
+            <Board
+              ref={this.myRef}
+              bg={this.backgroundPlayer}
+              music={this.music}
+              player={this.props.player01}
+              boardStatus={this.props.playerBoard}
+              piece={this.props.playerPiece}
+              message={this.getMessagePlayer()}
+            />
             <Board
               player={ this.props.opponents[0] }
               bg={this.backgroundOpponents}
               boardStatus={this.getOppBoard(this.props.opponents[0])}
-              piece={this.getOppPiece(this.props.opponents[0])}/>
+              piece={this.getOppPiece(this.props.opponents[0])}
+              message={this.getMessageOpp(this.props.opponents[0])}
               />
             <Board
               player={this.props.opponents[1]}
               bg={this.backgroundOpponents}
               boardStatus={this.getOppBoard(this.props.opponents[1])}
-              piece={this.getOppPiece(this.props.opponents[1])}/>
+              piece={this.getOppPiece(this.props.opponents[1])}
+              message={this.getMessageOpp(this.props.opponents[1])}
+              />
           </div>
-          {this.showGameResults()}
         </div>
       );
     } else {
