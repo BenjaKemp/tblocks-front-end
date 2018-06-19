@@ -3,7 +3,7 @@ import {START_GAME, FINISH_GAME, UPDATE_CLIENT_BOARD, UPDATE_CLIENT_STATUS, UPDA
 
 const initialState = {
   gameStatus: 'Playing',
-  message: null,
+  message: {},
   move: null,
   playerCount: 0,
   availablePlayers: [],
