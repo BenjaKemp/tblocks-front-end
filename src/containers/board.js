@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './board.css';
 import { connect } from 'react-redux';
-import { finishGame } from '../actions/index';
+import { finishGame, backToSel } from '../actions/index';
+import { socket } from '../socketCommunication';
 
 class Board extends Component {
   constructor(props){
     super(props)
     if (this.props.music) this.props.music.play();
+    this.buttonStyle = {
+      display: 'none',
+    }
   }
   componentDidMount() {
     this.tetrisCanvas = this.refs.tetrisCanvas;
@@ -23,6 +27,7 @@ class Board extends Component {
       '#00f0f0',    // L
       '#f0f000'     // O
     ];
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -32,7 +37,15 @@ class Board extends Component {
     if (nextProps.piece) this.drawMatrix(nextProps.piece.matrix, nextProps.piece.pos);
     else if ( this.props.piece ) this.drawMatrix(this.props.piece.matrix, this.props.piece.pos);
 
-    if(nextProps.gameStatus === 'Game Over')return true;
+    if(nextProps.gameStatus === 'Game Over'){
+      this.buttonStyle = {
+        display:'block',
+        width: '240px',
+        fontSize: '30px',
+      }
+      socket.disconnect();
+      return true;
+    }
     return false;
   }
   clearCanvas(color = '#000') {
@@ -82,7 +95,8 @@ class Board extends Component {
           <p className="PJName">{this.props.player.name}</p>
           <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
           {this.showGameResults()}
-      </div>
+          <button style={this.buttonStyle} className="button" onClick={(e)=>this.props.backToSel()}>Continue</button>
+        </div>
     );
   }
 }
@@ -95,7 +109,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  finishGame: (player) => dispatch(finishGame())
+  finishGame: (player) => dispatch(finishGame()),
+  backToSel:  ()=>dispatch(backToSel())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

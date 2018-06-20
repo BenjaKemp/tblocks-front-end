@@ -1,5 +1,18 @@
 import io from 'socket.io-client';
-const socket = io('http://192.168.1.245:3001/');
+  let socket;
+
+  const sIOConnect = (nsp) => {
+    try{
+      console.log(nsp)
+      socket = io('http://192.168.1.245:3001');
+
+    } catch (e) {
+      console.log("");
+    }
+  }
+
+
+
 
 const socketHandler = {
   'playersOnline': cb => socket.on('players online', data => cb(data)),
@@ -14,4 +27,4 @@ const socketHandler = {
   }
 }
 
-export { socketHandler, socket };
+export { socketHandler, socket, sIOConnect };

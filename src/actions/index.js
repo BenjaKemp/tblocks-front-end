@@ -1,4 +1,4 @@
-import {START_GAME, FINISH_GAME, UPDATE_CLIENT_BOARD, UPDATE_CLIENT_STATUS, UPDATE_PLAYER_COUNT, MOVE_LEFT, MOVE_RIGHT, MOVE_DOWN, DROP_DOWN, ROTATE, COLLTOFALS, ROWDESTFALS, FROWDESTFALS  } from "../constants/action-types";
+import {START_GAME, FINISH_GAME, UPDATE_CLIENT_BOARD, UPDATE_CLIENT_STATUS, UPDATE_PLAYER_COUNT, MOVE_LEFT, MOVE_RIGHT, MOVE_DOWN, DROP_DOWN, ROTATE, COLLTOFALS, ROWDESTFALS, FROWDESTFALS, BACKTOSEL  } from "../constants/action-types";
 
 export function startGame () {
     return {
@@ -72,5 +72,10 @@ export function rowDestToFalse () {
 export function fRowDestToFalse () {
     return {
       type: FROWDESTFALS,
+    }
+}
+export function backToSel () {
+    return {
+      type: BACKTOSEL,
     }
 }

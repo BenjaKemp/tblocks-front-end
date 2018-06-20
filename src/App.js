@@ -4,7 +4,7 @@ import './App.css';
 import ReactDOM from 'react-dom';
 import Board from './containers/board';
 import SoloUI from './containers/soloUI';
-import { socketHandler } from './socketCommunication';
+import { sIOConnect, socketHandler } from './socketCommunication';
 import { connect } from 'react-redux';
 
 
@@ -12,21 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {selection: false};
-    socketHandler['playersOnline']((playerCount) => {
-      this.props.updatePlayerCount(playerCount);
-    });
 
-    socketHandler['updateClient']((data) => {
-      this.props.updateClientStatus(data);
-    });
-
-    socketHandler['updateBoard']((data) => {
-      this.props.updateClientBoard(data);
-    });
-
-    socketHandler['finishGame']((data) => {
-      this.props.finishGame(data);
-    });
 
     //Name intro
     this.nameIntroduced = '';
@@ -47,8 +33,8 @@ class App extends Component {
     this.backgroundPlayer.src = "BGP.jpg";
     this.backgroundOpponents = new Image();
     this.backgroundOpponents.src = "BGO.jpg";
-
   }
+
   componentDidUpdate(){
     if (this.props.playerPiece.collision) {
       new Audio('impact.mp3').play();
@@ -132,6 +118,22 @@ class App extends Component {
   lookForAnOpponentClicked(option) {
     new Audio('shotgun.mp3').play();
     this.optionSelected = option;
+    sIOConnect('/bla');
+    socketHandler['playersOnline']((playerCount) => {
+      this.props.updatePlayerCount(playerCount);
+    });
+
+    socketHandler['updateClient']((data) => {
+      this.props.updateClientStatus(data);
+    });
+
+    socketHandler['updateBoard']((data) => {
+      this.props.updateClientBoard(data);
+    });
+
+    socketHandler['finishGame']((data) => {
+      this.props.finishGame(data);
+    });
     socketHandler['makePlayerAvailable'](this.nameIntroduced,option)
   }
 
@@ -143,7 +145,7 @@ class App extends Component {
   }
   getMessageOpp(id){
     if (id.id !== undefined) {
-      return id.name + this.props.message[id.id];
+      return id.name + ' ' + this.props.message[id.id];
     }
     return '';
   }
