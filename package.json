@@ -4,12 +4,18 @@
   "description": "frontend for 6-day Codeworks solo project 'Teltris'",
   "private": true,
   "dependencies": {
+    "ajv": "^6.5.1",
+    "ajv-keywords": "^3.1.0",
+    "dns": "^0.2.2",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.9.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "socket.io-client": "^2.1.0"
+    "socket.io-client": "^2.1.1",
+    "standard": "^11.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
