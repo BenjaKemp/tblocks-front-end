@@ -6,7 +6,7 @@ canvas {
   margin: auto;
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 480;
 }
 .PJName {
   margin-bottom: 0;
