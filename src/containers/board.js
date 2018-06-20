@@ -15,7 +15,7 @@ class Board extends Component {
   componentDidMount() {
     this.tetrisCanvas = this.refs.tetrisCanvas;
     this.tetrisCanvasContext = this.tetrisCanvas.getContext('2d');
-    this.tetrisCanvasContext.scale(20, 20);
+    this.tetrisCanvasContext.scale(30, 30);
     this.clearCanvas('#000');
     this.colors = [
       null,
@@ -93,7 +93,7 @@ class Board extends Component {
       return (
         <div className="div-board">
           <p className="PJName">{this.props.player.name}</p>
-          <canvas width="240" height="400" ref="tetrisCanvas"></canvas>
+          <canvas width="360" height="600" ref="tetrisCanvas"></canvas>
           {this.showGameResults()}
           <button style={this.buttonStyle} className="button" onClick={(e)=>this.props.backToSel()}>Continue</button>
         </div>

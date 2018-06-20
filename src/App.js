@@ -21,7 +21,7 @@ class App extends Component {
     //handling music
     this.music = new Audio( 'tetris.mp3' );
     this.music.loop = true;
-    this.music.muted = true;
+    // this.music.muted = true;
     this.musicList = ['tetris.mp3','badger2.mp3'];
     this.selectedmusic = 0;
 
