@@ -9,7 +9,6 @@ const initialState = {
   availablePlayers: [],
   clientStatus: 'welcome',
   player01: null,
-  //player02: null,
   opponents: null,
   opponentsBP: {},
   playerBoard: null,
