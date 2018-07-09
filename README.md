@@ -1,14 +1,14 @@
 # TBlocks
 
-![Gameplay](http://tblocks.s3-website.eu-west-3.amazonaws.com/images/gameplay.PNG)
+![img](https://raw.githubusercontent.com/rogerknl/tblocks-front-end/develop/public/tblocs.png) 
 
-> TBlocks is a multiplayer tetris-like game
+> TBlocks is a single/multiplayer tetris-like game
 
 ## Running the game
 
 ### Online Version
 
-The easiest way to run the game is to use the [online version](https://bit.ly/2rVTPSj) which is already
+The easiest way to run the game is to use the [online version](http://comrade.knl.catj) which is already
 deployed to a server on the internet.
 
 ### Locally
@@ -22,7 +22,7 @@ If you want to run the game locally, you'll need to:
 
 *Notice*: The game will use the back-end which is already deployed to match you
 with other players. If you want to run your own back-end, you'll need to clone
-the [back-end repository](https://bit.ly/2LjPctw) as well.
+the [back-end repository](https://github.com/rogerknl/tblocks-back-end) as well.
 
 
 ## How to Play
@@ -32,20 +32,18 @@ the [back-end repository](https://bit.ly/2LjPctw) as well.
 * `Up Arrow`: Rotate the current piece
 * `Down Arrow`: Move the current piece down by one unit
 * `Space Bar`: Drop current piece to the bottom of the board
+* `m`: Mute/unmute music
+* `M`: Change music track
 
-## Future of the game
+## Changes from the original game
 
-Looking ahead, there are a few things that I'd like to add to the game. Here
-are some of the ideas I want to implement:
-
-* Add a score for each player
-* Add preview of the next piece
+* Some UI improvements
+* Single player mode added
+* FFA ( 3 players ) added
+* Sound effects added
 * Increase speed of the pieces falling based on player's performance
 * Add an Attack/Perk system
   * Transfer cleared lines to the other player
-  * Apply gravity to the pieces so they drop if there is nothing below them
-  * Temporarily double the speed of the opponent's board
-  * Temporarily flip upside-down the opponent's board
 * Add music to the game
 
 ## Built with
@@ -63,4 +61,12 @@ this repository so we can get a conversation started.
 
 ## Authors
 
-* **Dave Martínez** - [Github](https://github.com/dkm-coder)
+###### Authors of actual refactor:
+
+* ##### Benjamin Kemp - [Github]() - [LinkedIn]()
+
+* ##### Roger Canela - [Github]() - [LinkedIn]()
+
+###### Author of the Original Repository  
+
+* ##### Dave Martínez - [Github](https://github.com/dkm-coder)

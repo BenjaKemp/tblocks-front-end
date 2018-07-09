@@ -2,3 +2,27 @@ canvas {
   border: 2px white solid;
   margin: 18px 8px;
 }
+.div-board {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 480;
+}
+.PJName {
+  margin-bottom: 0;
+}
+.END {
+  width:200px;
+  height: 100px;
+  padding:10px;
+  margin-left:10px;
+  margin-top:250px;
+  position: absolute;
+  background-color:rgba(255,255,255,0.8);
+  color:black;
+  z-index: 1;
+  border-radius:10px;
+}
+.END p {
+  margin-top:10px;
+}

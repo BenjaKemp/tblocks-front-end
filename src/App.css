@@ -1,29 +1,180 @@
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+
+
+@font-face {
+    font-family: 'motherland';
+    src: local('motherland'),
+          url('./assets/motherland.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Red October';
+    src: local('Red October'),
+          url('./assets/Red October.ttf') format('truetype');
+}
+@font-face {
+    font-family: '1942';
+    src: local('1942'),
+          url('./assets/1942.ttf') format('truetype');
+}
+
 .App {
+  background-image: url('https://images3.alphacoders.com/218/thumb-1920-218535.jpg');
   text-align: center;
   margin:0;
   padding:0;
+  padding-top:30px;
   width: 100%;
   height: 96vh;
   outline:none;
 }
+.App-SoloScene {
+  margin:auto;
+  max-width:450px;
+  display: flex;
+  justify-content:space-around;
+  align-items: flex-end;
 
+}
+.App-VSScene {
+  display: flex;
+  justify-content: space-around;
+}
+.App-FFAScene {
+  display: flex;
+  justify-content: space-around;
+}
 h1 {
+  font-family: 'motherland';
+   font-size: 400px;
+text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   margin: 0;
   padding-top:30px;
+
+}
+
+p {
+  font-family: 'Red October';
+  font-size: 40px;
+
 }
 
 button {
   color:black;
+  font-family: 'Red October';
   font-weight: bold;
   background-color:rgb(231, 203, 77);
   padding: 8px 6px;
-  width: 185px;
+  width: 285px;
   border: 0px solid black;
 }
 
 input {
+   font-family: 'Red October';
+   text-align: center;
   padding: 8px 12px;
-  width: 160px;
+  font-size: 40px;
+  width: 800px;
+  height: 50px;
   border-radius: 12px;
   outline:none;
+}
+body {
+  background: black;
+}
+.button {
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  background-color: #C90E17;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 1000px;
+  height: 80px;
+  display: inline-block;
+  font-family: 'Red October';
+  font-size: 40px;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+@-webkit-keyframes glowing {
+  0% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; -webkit-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; -webkit-box-shadow: 0 0 3px #B20000; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; -moz-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; -moz-box-shadow: 0 0 3px #B20000; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000; box-shadow: 0 0 3px #B20000; }
+}
+
+.line-1{
+    position: relative;
+    font-size: 25px;
+    font-family: '1942';
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);
+}
+
+/* Animation */
+.anim-typewriter{
+  animation: typewriter 1.6s steps(80) 1s 1 normal both,
+             blinkTextCursor 300ms steps(40) infinite normal;
+}
+.anim-typewriter1{
+  animation: typewriter 1.6s steps(80) 3s 1 normal both,
+             blinkTextCursor 500ms steps(70) infinite normal;
+}
+.anim-typewriter2{
+  animation: typewriter 1.6s steps(80) 5s 1 normal both,
+             blinkTextCursor 500ms steps(80) infinite normal;
+}
+.anim-typewriter3{
+  animation: typewriter 1.6s steps(80) 7s 1 normal both,
+             blinkTextCursor 500ms steps(80) infinite normal;
+}
+.anim-typewriter4{
+  animation: typewriter 1.6s steps(80) 9s 1 normal both,
+             blinkTextCursor 500ms steps(80) infinite normal;
+}
+@keyframes typewriter{
+  from{width: 0;}
+  to{width: 40em;}
+}
+@keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+}
+.orders-container {
+text-align: left;
+  padding: 5px;
+background-image: url('https://i.pinimg.com/originals/9d/93/22/9d93224ff6b8c91a21204f5edea5407f.jpg') ;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+  position: absolute;
+  left: 25%;
+  top:20%;
+  height: 290px;
+  width: 1000px;
 }
