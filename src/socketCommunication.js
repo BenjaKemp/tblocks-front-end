@@ -4,7 +4,7 @@ import io from 'socket.io-client';
   const sIOConnect = (nsp) => {
     try{
       console.log(nsp)
-      socket = io('http://51.38.230.154:3031');
+      socket = io('http://127.0.0.1:3001');
 
     } catch (e) {
       console.log("");
