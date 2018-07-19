@@ -8,7 +8,7 @@
 
 ### Online Version
 
-The easiest way to run the game is to use the [online version](http://comrade.knl.catj) which is already
+The easiest way to run the game is to use the [online version](http://comrade.knl.cat) which is already
 deployed to a server on the internet.
 
 ### Locally
